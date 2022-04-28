@@ -1,18 +1,18 @@
 package com.crud.democrud.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "usuario-rol")
+@Table(name = "usuariorol")
 public class UsuarioRol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
     private String rol;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private UsuarioModel usuarios;
+    @ManyToOne()
+    @JoinColumn(name="usuarioid")
+    private UsuarioModel usuario;
 
     public Long getId() {
         return id;
@@ -36,5 +36,13 @@ public class UsuarioRol {
     public UsuarioRol(Long id, String rol) {
         this.id = id;
         this.rol = rol;
+    }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
     }
 }
